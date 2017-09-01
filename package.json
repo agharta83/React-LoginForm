@@ -1,0 +1,38 @@
+{
+  "name": "React-E07-challenge-login",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "",
+  "author": "Maxime Vasse <maxime@oclock.io>",
+  "license": "MIT",
+  "devDependencies": {
+    "auto-reload-brunch": "*",
+    "autoprefixer": "*",
+    "babel-brunch": "https://github.com/babel/babel-brunch",
+    "babel-eslint": "*",
+    "babel-plugin-transform-class-properties": "*",
+    "babel-plugin-transform-object-rest-spread": "*",
+    "babel-preset-env": "*",
+    "babel-preset-react": "*",
+    "brunch": "*",
+    "eslint": "*",
+    "eslint-config-airbnb": "*",
+    "eslint-import-resolver-node": "*",
+    "eslint-plugin-import": "*",
+    "eslint-plugin-jsx-a11y": "*",
+    "eslint-plugin-react": "*",
+    "postcss-brunch": "0.5.0",
+    "stylus-brunch": "*"
+  },
+  "dependencies": {
+    "babel-polyfill": "*",
+    "prop-types": "*",
+    "react": "*",
+    "react-dom": "*"
+  },
+  "scripts": {
+    "build": "brunch build",
+    "start": "brunch watch --server",
+    "save-deps": "rm -rf node_modules && npm update --save && npm update --save-dev"
+  }
+}
