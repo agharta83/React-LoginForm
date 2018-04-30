@@ -25,7 +25,9 @@
     "stylus-brunch": "*"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-polyfill": "*",
+    "classnames": "^2.2.5",
     "prop-types": "*",
     "react": "*",
     "react-dom": "*"

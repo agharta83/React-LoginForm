@@ -1,41 +1,56 @@
-/*
- * Npm import
+/**
+ * Import NPM
  */
 import React from 'react';
+import Field from 'src/components/Field';
 import PropTypes from 'prop-types';
 
-
-/*
- * Local import
- */
-
-
-/*
+/**
  * Component
  */
 const Login = ({
-  type, name, placeholder, handleChange, value,
-}) => (
-  <input
-    value={value}
-    onChange={handleChange}
-    className="input"
-    type={type}
-    name={name}
-    placeholder={placeholder}
-  />
-);
-
-Login.propTypes = {
-  name: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['email', 'password']),
+  email, password, changeState, changeInput, submit }) => {
+  return (
+    <div className="app-login">
+      <h1 className="app-title">Connexion</h1>
+      <p className="app-desc">Renseignez votre adresse e-mail et votre mot de passe pour accéder à votre compte.</p>
+      <form className="form">
+        <Field
+          name="email"
+          placeholder="Adresse e-mail"
+          handleChange={changeInput}
+          value={email}
+        />
+        <Field
+          name="password"
+          placeholder="Mot de passe"
+          handleChange={changeInput}
+          type="password"
+          value={password}
+        />
+        <button className="form-submit form-submit--login" onClick={submit}>
+          Se connecter
+        </button>
+        <a
+          className="app-link"
+          onClick={changeState('password')}
+        >
+          Mot de passe oublié
+        </a>
+      </form>
+    </div>
+  );
 };
 
+Login.propTypes = {
+  email: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  changeState: PropTypes.func.isRequired,
+  changeInput: PropTypes.func.isRequired,
+  submit: PropTypes.func.isRequired,
+};
 
-/*
- * Export default
+/**
+ * Export
  */
 export default Login;
