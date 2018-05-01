@@ -9,6 +9,7 @@ import axios from 'axios';
  */
 import Login from 'src/components/App/Login';
 import Password from 'src/components/App/Password';
+import Profil from 'src/components/App/Profil';
 
 /*
  * Component
@@ -29,7 +30,7 @@ class App extends React.Component {
     // On fait la requête
     axios.post('http://localhost:3000/login', {
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
     })
       .then((response) => {
         console.log(response);
@@ -37,10 +38,14 @@ class App extends React.Component {
       .catch((error) => {
         console.log(error);
       });
+
+    // On change la vue pour affiché la page Profil
+    this.setState({
+      view: 'profil',
+    });
   };
 
-
-  /**
+  /*
    * Réagir au champ du formulaire.
    */
   handleInputChange = (evt) => {
@@ -51,7 +56,7 @@ class App extends React.Component {
     });
   };
 
-  /**
+  /*
   * Changer de vue.
   */
   changeView = newView => () => {
@@ -80,6 +85,9 @@ class App extends React.Component {
             changeState={this.changeView}
             changeInput={this.handleInputChange}
           />
+        }
+        {
+          view === 'profil' && <Profil />
         }
       </div>
     );
