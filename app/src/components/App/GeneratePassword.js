@@ -9,11 +9,10 @@ import PropTypes from 'prop-types';
  * Component
  */
 
-const LoginError = ({ changeState }) => (
-  <div id="login-error">
-    <h1>Echec d'authentification</h1>
-    <p>Mot de passe ou email invalide</p>
-    <p>Cliquez sur le lien pour recommencer</p>
+const GeneratePassword = ({ changeState }) => (
+  <div>
+    <h1>Generation du mot de passe réussi</h1>
+    <p>Surveillez votre boite mail !</p>
     <a
       className="app-link app-link--back"
       onClick={changeState('login')}
@@ -23,11 +22,10 @@ const LoginError = ({ changeState }) => (
   </div>
 );
 
-LoginError.propTypes = {
+GeneratePassword.propTypes = {
   changeState: PropTypes.func.isRequired,
 };
-
 /*
  * Export
  */
-export default LoginError;
+export default GeneratePassword;

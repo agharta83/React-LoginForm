@@ -11,6 +11,7 @@ import Login from 'src/components/App/Login';
 import Password from 'src/components/App/Password';
 import Profil from 'src/components/App/Profil';
 import LoginError from 'src/components/App/LoginError';
+import GeneratePassword from 'src/components/App/GeneratePassword';
 /*
  * Component
  */
@@ -22,7 +23,7 @@ class App extends React.Component {
   }
 
   /*
-  * Soumission du formulaire
+  * Soumission du formulaire de connexion
   */
   onSubmit = (evt) => {
     evt.preventDefault();
@@ -50,6 +51,32 @@ class App extends React.Component {
   };
 
   /*
+   * Soumission du formulaire password
+   */
+  forgottenPassword = (evt) => {
+    evt.preventDefault();
+    // On fait la requête Axios pour récupérer le password
+    axios.post('http://localhost:3000/forgot', {
+      email: this.state.email,
+    })
+      .then((response) => {
+        console.log(response);
+        // On change la vue pour informer que le nouveau password a bien été envoyé
+        //
+        this.setState({
+          view: 'GeneratePassword',
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        // On affiche la vue lorsqu'il n'y a pas de match
+        this.setState({
+          view: 'loginError',
+        });
+      });
+  };
+
+  /*
    * Réagir au champ du formulaire.
    */
   handleInputChange = (evt) => {
@@ -70,7 +97,9 @@ class App extends React.Component {
   };
 
   render() {
-    const { view, email, password, name } = this.state;
+    const {
+      view, email, password, name,
+    } = this.state;
 
     return (
       <div id="app" className="app">
@@ -88,6 +117,7 @@ class App extends React.Component {
             email={email}
             changeState={this.changeView}
             changeInput={this.handleInputChange}
+            forgottenPassword={this.forgottenPassword}
           />
         }
         {
@@ -97,6 +127,11 @@ class App extends React.Component {
         }
         {
           view === 'loginError' && <LoginError
+            changeState={this.changeView}
+          />
+        }
+        {
+          view === 'GeneratePassword' && <GeneratePassword
             changeState={this.changeView}
           />
         }
