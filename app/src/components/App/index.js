@@ -2,6 +2,7 @@
  * Npm import
  */
 import React from 'react';
+import axios from 'axios';
 
 /*
  * Local import
@@ -20,12 +21,24 @@ class App extends React.Component {
   }
 
   /*
-  * Requête AXIOS
+  * Soumission du formulaire
   */
   onSubmit = (evt) => {
     evt.preventDefault();
-    console.log(this.state.password);
+
+    // On fait la requête
+    axios.post('http://localhost:3000/login', {
+      email: this.state.email,
+      password: this.state.password
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+
 
   /**
    * Réagir au champ du formulaire.
