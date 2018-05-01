@@ -34,15 +34,15 @@ class App extends React.Component {
     })
       .then((response) => {
         console.log(response);
+        // On change la vue pour affiché la page Profil
+        this.setState({
+          view: 'profil',
+          name: response.data,
+        });
       })
       .catch((error) => {
         console.log(error);
       });
-
-    // On change la vue pour affiché la page Profil
-    this.setState({
-      view: 'profil',
-    });
   };
 
   /*
@@ -66,7 +66,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { view, email, password } = this.state;
+    const { view, email, password, name } = this.state;
 
     return (
       <div id="app" className="app">
@@ -87,7 +87,9 @@ class App extends React.Component {
           />
         }
         {
-          view === 'profil' && <Profil />
+          view === 'profil' && <Profil
+            name={name}
+          />
         }
       </div>
     );
