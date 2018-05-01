@@ -10,7 +10,7 @@ import axios from 'axios';
 import Login from 'src/components/App/Login';
 import Password from 'src/components/App/Password';
 import Profil from 'src/components/App/Profil';
-
+import LoginError from 'src/components/App/LoginError';
 /*
  * Component
  */
@@ -42,6 +42,10 @@ class App extends React.Component {
       })
       .catch((error) => {
         console.log(error);
+        // On affiche la vue lorsqu'il y a une erreur de connexion
+        this.setState({
+          view: 'loginError',
+        });
       });
   };
 
@@ -89,6 +93,11 @@ class App extends React.Component {
         {
           view === 'profil' && <Profil
             name={name}
+          />
+        }
+        {
+          view === 'loginError' && <LoginError
+            changeState={this.changeView}
           />
         }
       </div>

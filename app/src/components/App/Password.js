@@ -37,7 +37,7 @@ const Password = ({ email, changeState, changeInput }) => {
 Password.propTypes = {
   email: PropTypes.string.isRequired,
   changeState: PropTypes.func.isRequired,
-  changeInput: PropTypes.func.isRequired
+  changeInput: PropTypes.func.isRequired,
 };
 
 /**
