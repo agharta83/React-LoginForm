@@ -9,96 +9,113 @@ import axios from 'axios';
  */
 import Login from 'src/components/App/Login';
 import Password from 'src/components/App/Password';
-import Profil from 'src/components/App/Profil';
-import LoginError from 'src/components/App/LoginError';
-import GeneratePassword from 'src/components/App/GeneratePassword';
+
+const baseURL = 'http://localhost:3000';
+
 /*
  * Component
  */
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log('constructor');
+  }
+
   state = {
     view: 'login',
     email: '',
     password: '',
+    name: '',
   }
 
   /*
-  * Soumission du formulaire de connexion
-  */
-  onSubmit = (evt) => {
-    evt.preventDefault();
-
-    // On fait la requête
-    axios.post('http://localhost:3000/login', {
-      email: this.state.email,
-      password: this.state.password,
-    })
-      .then((response) => {
-        console.log(response);
-        // On change la vue pour affiché la page Profil
-        this.setState({
-          view: 'profil',
-          name: response.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-        // On affiche la vue lorsqu'il y a une erreur de connexion
-        this.setState({
-          view: 'loginError',
-        });
-      });
-  };
-
-  /*
-   * Soumission du formulaire password
+   * Lifecycles
    */
-  forgottenPassword = (evt) => {
-    evt.preventDefault();
-    // On fait la requête Axios pour récupérer le password
-    axios.post('http://localhost:3000/forgot', {
-      email: this.state.email,
-    })
-      .then((response) => {
-        console.log(response);
-        // On change la vue pour informer que le nouveau password a bien été envoyé
-        //
-        this.setState({
-          view: 'GeneratePassword',
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-        // On affiche la vue lorsqu'il n'y a pas de match
-        this.setState({
-          view: 'loginError',
-        });
-      });
-  };
+  // MOUNT / Création du composant
+
+  // Bientot supprimé de react, attention
+  componentWillMount() {
+    console.log('componentWillMount');
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount');
+  }
+
+  // UPDATE / mise à jour du composant
+  // Lorsque les props changent // Cas d'usage hyper rare ! Attention déprécié
+  componentWillReceiveProps() {
+    console.log('componentWillReceiveProps');
+  }
+  // Idéal lorsque l'application commence à être lente parfait pour l'optimisation
+  // Méfiez vous, ça peut être dangeureux
+  shouldComponentUpdate() {
+    console.log('shouldComponentUpdate');
+    return true;
+  }
+  // ! Attention déprécié
+  componentWillUpdate() {
+    console.log('componentWillUpdate');
+  }
+
+  componentDidUpdate() {
+    console.log('componentDidUpdate');
+  }
 
   /*
-   * Réagir au champ du formulaire.
+   * ACTIONS
    */
-  handleInputChange = (evt) => {
-    const { value, name } = evt.target;
-
-    this.setState({
-      [name]: value,
-    });
-  };
-
-  /*
-  * Changer de vue.
-  */
+  // Changer de vue.
   changeView = newView => () => {
     this.setState({
       view: newView,
     });
   };
 
+  // Réagir au champ du formulaire.
+  handleInputChange = (evt) => {
+    const { value, name } = evt.target;
+
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  // à la soumission de la connexion
+  handleSubmitLogin = (evt) => {
+    // Blocage du comportement par défaut
+    evt.preventDefault();
+
+    // Je décompose le state
+    const { email, password } = this.state;
+
+    // Envoyer mes infos au server (email, password)
+    axios.post(`${baseURL}/login`, {
+      email,
+      password,
+    })
+    // En cas de succès
+      .then((response) => {
+        this.setState({
+          // La réponse du serveur (le nom de l'utilisateur)
+          name: response.data,
+          // La nouvelle vue pour les users connectés
+          view: 'logged',
+        });
+      })
+      // En cas d'échec
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   render() {
+    console.log('render');
     const {
-      view, email, password, name,
+      view,
+      email,
+      password,
+      name,
     } = this.state;
 
     return (
@@ -109,7 +126,7 @@ class App extends React.Component {
             password={password}
             changeState={this.changeView}
             changeInput={this.handleInputChange}
-            submit={this.onSubmit}
+            onSubmitLogin={this.handleSubmitLogin}
           />
         }
         {
@@ -117,23 +134,10 @@ class App extends React.Component {
             email={email}
             changeState={this.changeView}
             changeInput={this.handleInputChange}
-            forgottenPassword={this.forgottenPassword}
           />
         }
         {
-          view === 'profil' && <Profil
-            name={name}
-          />
-        }
-        {
-          view === 'loginError' && <LoginError
-            changeState={this.changeView}
-          />
-        }
-        {
-          view === 'GeneratePassword' && <GeneratePassword
-            changeState={this.changeView}
-          />
+          view === 'logged' && <div>Bonjour {name}</div>
         }
       </div>
     );

@@ -8,12 +8,7 @@ import PropTypes from 'prop-types';
 /**
  * Component
  */
-const Password = ({
-  email,
-  changeState,
-  changeInput,
-  forgottenPassword,
-}) => {
+const Password = ({ email, changeState, changeInput }) => {
   return (
     <div className="app-password">
       <a
@@ -31,10 +26,7 @@ const Password = ({
           handleChange={changeInput}
           value={email}
         />
-        <button
-          className="form-submit"
-          onClick={forgottenPassword}
-        >
+        <button className="form-submit">
           Regénérer un mot de passe
         </button>
       </form>
@@ -45,8 +37,7 @@ const Password = ({
 Password.propTypes = {
   email: PropTypes.string.isRequired,
   changeState: PropTypes.func.isRequired,
-  changeInput: PropTypes.func.isRequired,
-  forgottenPassword: PropTypes.func.isRequired,
+  changeInput: PropTypes.func.isRequired
 };
 
 /**

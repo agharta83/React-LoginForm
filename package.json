@@ -9,7 +9,7 @@
     "auto-reload-brunch": "*",
     "autoprefixer": "*",
     "babel-brunch": "https://github.com/babel/babel-brunch",
-    "babel-eslint": "^8.2.3",
+    "babel-eslint": "*",
     "babel-plugin-transform-class-properties": "*",
     "babel-plugin-transform-object-rest-spread": "*",
     "babel-preset-env": "*",
